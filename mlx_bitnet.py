@@ -874,6 +874,7 @@ def load_causal_model(model_name: str, dtype: str = "float16"):
     dtype = getattr(mx, dtype)
     model = BitnetForCausalLM(sanitize_config(config))
     file_name = model_name.replace("/", "-")
+    print(file_name)
     weights = mx.load(f"{file_name}.npz")
     weights = tree_unflatten(list(weights.items()))
     weights = tree_map(lambda p: p.astype(dtype), weights)

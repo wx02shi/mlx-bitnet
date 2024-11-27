@@ -18,6 +18,7 @@ parser.add_argument('--maxlen', default=20, type=int)
 
 def generate_text(model, tokenizer, prompt, max_length=100):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(model.lm_head.weight.device)
+    print(input_ids)
     # Generate cos and sin values
     seq_length = input_ids.size(1)
     position_ids = torch.arange(seq_length, dtype=torch.long, device=input_ids.device)
@@ -36,7 +37,7 @@ def generate_text(model, tokenizer, prompt, max_length=100):
     )
 
     start_time = time.time()
-    output_ids = model.generate(input_ids, generation_config=generation_config)
+    output_ids = model.generate(input_ids, use_cache=False, generation_config=generation_config)
     # output_ids = model.generate(input_ids, generation_config=generation_config, cos=cos, sin=sin)
     end_time = time.time()
 

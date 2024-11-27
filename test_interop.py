@@ -26,7 +26,6 @@ from torch_bitnet import BitnetModel as TorchBitnetModel
 from torch_bitnet import BitnetForCausalLM as TorchBitnetForCausalLM
 from torch_bitnet import BitnetDecoderLayer as TorchBitnetDecoderLayer
 from transformers.activations import silu as torch_silu
-from training.bit_linear import weight_quant as bit_linear_weight_quant
 
 class TestBitLinearInterop(unittest.TestCase):
     def setUp(self):
@@ -462,9 +461,9 @@ class TestBitnetAttentionInterop(unittest.TestCase):
         print("Next predicted token ID:", next_token_ids)
         print("Next predicted token:", tokenizer.decode(np.array(next_token_ids).tolist()[0]))  # Decode using the numpy array
 
-    @unittest.skip("skip this test normally because its slow")
+    # @unittest.skip("skip this test normally because its slow")
     def test_single_inference_with_generate_from_mlx_bitnet_model(self):
-        model_name = "1bitLLM/bitnet_b1_58-large"
+        model_name = "1bitLLM/bitnet_b1_58-xl"
         torch_model = TorchBitnetForCausalLM.from_pretrained(model_name)
 
         mlx_model, _ = load_causal_model(model_name)

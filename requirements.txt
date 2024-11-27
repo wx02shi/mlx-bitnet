@@ -3,3 +3,4 @@ sentencepiece
 torch
 numpy
 transformers
+protobuf
